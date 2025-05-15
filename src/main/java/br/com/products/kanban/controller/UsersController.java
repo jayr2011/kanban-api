@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/gerenciar-usuarios")
+@RequestMapping("/kanban")
 public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/usuario")
-    public ResponseEntity<List<UserDTO>> getUser() {
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> getUsers() {
         List<UserDTO> users = userService.findAllUsers();
         if (users.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -28,7 +28,7 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/usuario/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable UUID id) {
         return userService.findById(id)
                 .map(ResponseEntity::ok)

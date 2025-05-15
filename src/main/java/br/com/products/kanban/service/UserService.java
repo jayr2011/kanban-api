@@ -27,7 +27,7 @@ public class UserService {
 
    public UserDTO createUser(UserDTO dto) {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
-                logger.warn("Email already exists: {}", dto.getEmail());
+                logger.info("Logg: Email already exists: {}", dto.getEmail());
                 throw new RuntimeException("Email already exists");
         }
         dto.setPassword(cryptoPasswordService.encodePassword(dto.getPassword()));
@@ -36,13 +36,6 @@ public class UserService {
         savedDto.setPassword(null);
         return savedDto;
     }
-
-   public List<UserDTO> findAllUserOptional() {
-         return userRepository.findAll()
-              .stream()
-              .map(UserMapper::convertToDto)
-              .collect(Collectors.toList());
-   }
 
    public Optional<UserDTO> findById(UUID id) {
        return userRepository.findById(id).map(UserMapper::convertToDto);
