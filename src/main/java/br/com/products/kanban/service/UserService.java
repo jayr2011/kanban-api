@@ -11,40 +11,40 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.products.kanban.DTO.UserDTO;
+import br.com.products.kanban.DTO.userDTO.UserRequisitionDTO;
+import br.com.products.kanban.DTO.userDTO.UserResponseDTO;
 import br.com.products.kanban.mapper.UserMapper;
 import br.com.products.kanban.repository.UserRepository;
 
 @Service
 public class UserService {
     @Autowired
-   private UserRepository userRepository;
+    private UserRepository userRepository;
 
-   private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-   private CryptoPasswordService cryptoPasswordService;
+    private CryptoPasswordService cryptoPasswordService;
 
-   public UserDTO createUser(UserDTO dto) {
+    public UserRequisitionDTO createUser(UserResponseDTO dto) {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
-                logger.info("Logg: Email already exists: {}", dto.getEmail());
-                throw new RuntimeException("Email already exists");
+            logger.info("Logg: Email already exists: {}", dto.getEmail());
+            throw new RuntimeException("Email already exists");
         }
         dto.setPassword(cryptoPasswordService.encodePassword(dto.getPassword()));
-        var savedEntity = userRepository.save(UserMapper.convertToEntity(dto));
-        var savedDto = UserMapper.convertToDto(savedEntity);
-        savedDto.setPassword(null);
-        return savedDto;
+        var userEntity = UserMapper.toUserEntityFromResponseDTO(dto);
+        var savedEntity = userRepository.save(userEntity);
+        return UserMapper.toRequisitionDTOFromUserEntity(savedEntity);
     }
 
-   public Optional<UserDTO> findById(UUID id) {
-       return userRepository.findById(id).map(UserMapper::convertToDto);
-   }
+    public Optional<UserRequisitionDTO> findById(UUID id) {
+        return userRepository.findById(id).map(UserMapper::toRequisitionDTOFromUserEntity);
+    }
 
-   public List<UserDTO> findAllUsers() {
-         return userRepository.findAll()
-              .stream()
-              .map(UserMapper::convertToDto)
-              .collect(Collectors.toList());
-   }
+    public List<UserRequisitionDTO> findAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toRequisitionDTOFromUserEntity)
+                .collect(Collectors.toList());
+    }
 }

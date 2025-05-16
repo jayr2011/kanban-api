@@ -1,12 +1,11 @@
-package br.com.products.kanban.DTO;
+package br.com.products.kanban.DTO.userDTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
-    private String id;
+public class UserResponseDTO {
     private String name;
     private String email;
     private Long documentNumber;
