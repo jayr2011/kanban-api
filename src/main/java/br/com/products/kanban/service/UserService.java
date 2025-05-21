@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.products.kanban.DTO.userDTO.UserRequisitionDTO;
-import br.com.products.kanban.DTO.userDTO.UserResponseDTO;
+import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDto;
 import br.com.products.kanban.mapper.UserMapper;
 import br.com.products.kanban.repository.UserRepository;
 
@@ -26,25 +26,25 @@ public class UserService {
     @Autowired
     private CryptoPasswordService cryptoPasswordService;
 
-    public UserRequisitionDTO createUser(UserResponseDTO dto) {
+    public UserViewDto createUser(UserCreationRequestDto dto) {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             logger.info("Logg: Email already exists: {}", dto.getEmail());
             throw new RuntimeException("Email already exists");
         }
         dto.setPassword(cryptoPasswordService.encodePassword(dto.getPassword()));
-        var userEntity = UserMapper.toUserEntityFromResponseDTO(dto);
+        var userEntity = UserMapper.toEntity(dto);
         var savedEntity = userRepository.save(userEntity);
-        return UserMapper.toRequisitionDTOFromUserEntity(savedEntity);
+        return UserMapper.toViewDTO(savedEntity);
     }
 
-    public Optional<UserRequisitionDTO> findById(UUID id) {
-        return userRepository.findById(id).map(UserMapper::toRequisitionDTOFromUserEntity);
+    public Optional<UserViewDto> findById(UUID id) {
+        return userRepository.findById(id).map(UserMapper::toViewDTO);
     }
 
-    public List<UserRequisitionDTO> findAllUsers() {
+    public List<UserViewDto> findAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(UserMapper::toRequisitionDTOFromUserEntity)
+                .map(UserMapper::toViewDTO)
                 .collect(Collectors.toList());
     }
 }

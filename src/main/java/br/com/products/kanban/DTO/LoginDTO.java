@@ -1,11 +1,11 @@
-package br.com.products.kanban.DTO;
+package br.com.products.kanban.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginDTO {
+public class LoginDto {
     private String email;
     private String password;
 }

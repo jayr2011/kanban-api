@@ -2,7 +2,6 @@ package br.com.products.kanban.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.products.kanban.converter.DocumentNumberConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class UserEntity {
     @Column(name = "name")
     private String name;
     @Id
@@ -22,7 +21,6 @@ public class User {
     @Column(name = "id")
     private UUID id;
     @Column(name = "documentNumber")
-    @Convert(converter = DocumentNumberConverter.class)
     private Long documentNumber;
     @Column(name = "email")
     @Email(message = "email should be valid")

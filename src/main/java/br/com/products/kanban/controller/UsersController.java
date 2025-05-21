@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.products.kanban.DTO.userDTO.UserRequisitionDTO;
-import br.com.products.kanban.DTO.userDTO.UserResponseDTO;
+import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDto;
 import br.com.products.kanban.service.UserService;
 
 import java.util.List;
@@ -21,8 +21,8 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserRequisitionDTO>> getUsers() {
-        List<UserRequisitionDTO> users = userService.findAllUsers();
+    public ResponseEntity<List<UserViewDto>> getUsers() {
+        List<UserViewDto> users = userService.findAllUsers();
         if (users.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -30,15 +30,15 @@ public class UsersController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserRequisitionDTO> getUserById(@PathVariable UUID id) {
+    public ResponseEntity<UserViewDto> getUserById(@PathVariable UUID id) {
         return userService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserRequisitionDTO> PostUser(@Valid @RequestBody UserResponseDTO userDTO) {
-        UserRequisitionDTO savedUserDTO = userService.createUser(userDTO);
+    public ResponseEntity<UserViewDto> PostUser(@Valid @RequestBody UserCreationRequestDto userDTO) {
+        UserViewDto savedUserDTO = userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
     }
 }
