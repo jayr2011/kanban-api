@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/kanban")
+@RequestMapping("/sec")
 public class UsersController {
     @Autowired
     private UserService userService;
@@ -37,8 +37,8 @@ public class UsersController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserViewDto> PostUser(@Valid @RequestBody UserCreationRequestDto userDTO) {
-        UserViewDto savedUserDTO = userService.createUser(userDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
+    public ResponseEntity<UserViewDto> createUser(@Valid @RequestBody UserCreationRequestDto userDto) {
+        UserViewDto savedUserDto = userService.createUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDto);
     }
 }

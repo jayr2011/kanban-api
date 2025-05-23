@@ -5,9 +5,13 @@ import org.springframework.stereotype.Service;
 
 import br.com.products.kanban.dto.LoginDto;
 import br.com.products.kanban.repository.UserRepository;
+import lombok.Getter;
+import lombok.Setter;
 import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.mapper.LoginMapper;
 
+@Getter
+@Setter
 @Service
 public class LoginService {
     @Autowired

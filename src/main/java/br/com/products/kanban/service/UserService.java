@@ -1,30 +1,28 @@
 package br.com.products.kanban.service;
 
+import br.com.products.kanban.dto.user.UserCreationRequestDto;
+import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.mapper.UserMapper;
+import br.com.products.kanban.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.com.products.kanban.dto.user.UserViewDto;
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
-import br.com.products.kanban.mapper.UserMapper;
-import br.com.products.kanban.repository.UserRepository;
-
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-
+    private final UserRepository userRepository;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final CryptoPasswordService cryptoPasswordService;
 
-    @Autowired
-    private CryptoPasswordService cryptoPasswordService;
+    public UserService(UserRepository userRepository, CryptoPasswordService cryptoPasswordService) {
+        this.userRepository = userRepository;
+        this.cryptoPasswordService = cryptoPasswordService;
+    }
 
     public UserViewDto createUser(UserCreationRequestDto dto) {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
