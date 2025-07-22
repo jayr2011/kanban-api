@@ -30,9 +30,7 @@ public class LoginServiceTest {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        loginService = new LoginService();
-        loginService.setUserRepository(userRepository);
-        loginService.setCryptoPassword(cryptoPassword);
+        loginService = new LoginService(userRepository, cryptoPassword);
         loginDto = new LoginDto();
         userEntity = new UserEntity();
     }

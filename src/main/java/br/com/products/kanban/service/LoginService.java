@@ -1,24 +1,25 @@
 package br.com.products.kanban.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.mapper.LoginMapper;
+import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
-import br.com.products.kanban.model.UserEntity;
-import br.com.products.kanban.mapper.LoginMapper;
+import org.springframework.stereotype.Service;
 
 @Getter
 @Setter
 @Service
 public class LoginService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private CryptoPasswordService cryptoPassword;
+    private final CryptoPasswordService cryptoPassword;
+
+    public LoginService(UserRepository userRepository, CryptoPasswordService cryptoPassword) {
+        this.userRepository = userRepository;
+        this.cryptoPassword = cryptoPassword;
+    }
 
     public boolean authenticate(LoginDto loginDTto){
         UserEntity loginData = LoginMapper.toUserEntityFromResponseDto(loginDTto);
