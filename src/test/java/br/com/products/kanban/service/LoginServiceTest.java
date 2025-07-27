@@ -21,6 +21,9 @@ public class LoginServiceTest {
     @Mock
     private CryptoPasswordService cryptoPassword;
 
+    @Mock
+    private JwtService jwtService;
+
     private LoginService loginService;
 
     private LoginDto loginDto;
@@ -30,7 +33,7 @@ public class LoginServiceTest {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        loginService = new LoginService(userRepository, cryptoPassword);
+        loginService = new LoginService(userRepository, cryptoPassword, jwtService);
         loginDto = new LoginDto();
         userEntity = new UserEntity();
     }
@@ -65,15 +68,20 @@ public class LoginServiceTest {
 
     @Test
     void authenticateShouldReturnTrueWhenPasswordIsCorrect() {
-        loginDto.setEmail("notfound@example.com");
+        // Arrange: set loginDto and userEntity with matching credentials
+        loginDto.setEmail("test@example.com");
         loginDto.setPassword("password123");
+        userEntity.setEmail("test@example.com");
+        userEntity.setPassword("password123");
 
-        when(userRepository.findByEmail("notfound@example.com")).thenReturn(Optional.of(userEntity));
-        when(cryptoPassword.matches("password123", userEntity.getPassword())).thenReturn(true);
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(userEntity));
+        when(cryptoPassword.matches("password123", "password123")).thenReturn(true);
 
+        // Act
         boolean result = loginService.authenticate(loginDto);
 
+        // Assert
         assertTrue(result);
-    };
+    }
 
 }

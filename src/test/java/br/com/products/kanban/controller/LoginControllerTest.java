@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -27,22 +29,28 @@ class LoginControllerTest {
     @Test
     void testLoginSuccess() {
         LoginDto loginDto = new LoginDto();
-        when(loginService.authenticate(loginDto)).thenReturn(true);
+        when(loginService.login(loginDto)).thenReturn(java.util.Optional.of("fake-jwt-token"));
 
-        ResponseEntity<String> response = loginController.login(loginDto);
+        ResponseEntity<?> response = loginController.login(loginDto);
 
         assertEquals(200, response.getStatusCode().value());
-        assertEquals("Login successful", response.getBody());
+        assertInstanceOf(Map.class, response.getBody());
+        java.util.Map<?,?> body = (java.util.Map<?,?>) response.getBody();
+        assertNotNull(body);
+        assertEquals("fake-jwt-token", body.get("token"));
     }
 
     @Test
     void testLoginFailure() {
         LoginDto loginDto = new LoginDto();
-        when(loginService.authenticate(loginDto)).thenReturn(false);
+        when(loginService.login(loginDto)).thenReturn(java.util.Optional.empty());
 
-        ResponseEntity<String> response = loginController.login(loginDto);
+        ResponseEntity<?> response = loginController.login(loginDto);
 
         assertEquals(401, response.getStatusCode().value());
-        assertEquals("Invalid credentials", response.getBody());
+        assertInstanceOf(Map.class, response.getBody());
+        Map<?,?> body = (Map<?,?>) response.getBody();
+        assertNotNull(body);
+        assertEquals("Invalid credentials", body.get("error"));
     }
 }
