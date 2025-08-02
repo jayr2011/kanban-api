@@ -77,4 +77,8 @@ public class UserService {
     public List<UserViewDto> findAllUsers() {
         return userRepository.findAll().stream().map(UserMapper::toViewDTO).toList();
     }
+
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
 }

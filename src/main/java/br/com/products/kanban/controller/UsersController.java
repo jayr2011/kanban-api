@@ -77,6 +77,17 @@ public class UsersController {
     }
 
     /**
+     * Deletes all users from the system.
+     *
+     * @return ResponseEntity with HTTP 200 status if all users are deleted successfully.
+     */
+    @DeleteMapping("/users/deleteAll")
+    public ResponseEntity<?> deleteAllUsers() {
+        userService.deleteAll();
+        return ResponseEntity.ok().build();
+    }
+
+    /**
      * Retrieves the currently authenticated user's information based on the JWT token.
      *
      * @param authorizationHeader Authorization header containing the JWT token.
