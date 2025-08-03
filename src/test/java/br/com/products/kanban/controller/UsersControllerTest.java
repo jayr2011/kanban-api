@@ -2,8 +2,6 @@ package br.com.products.kanban.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -54,7 +52,7 @@ public class UsersControllerTest {
 
     @Test
     void shouldReturnUserById() {
-        UUID userId = UUID.randomUUID();
+        String userId = "123e4567-e89b-12d3-a456-426614174000";
         UserViewDTO user = new UserViewDTO();
         when(userService.findById(userId)).thenReturn(Optional.of(user));
 
@@ -66,7 +64,7 @@ public class UsersControllerTest {
 
     @Test
     void shouldReturnNotFoundWhenUserByIdDoesNotExist() {
-        UUID userId = UUID.randomUUID();
+        String userId = "123e4567-e89b-12d3-a456-426614174000";
         when(userService.findById(userId)).thenReturn(Optional.empty());
 
         ResponseEntity<UserViewDTO> response = usersController.getUserById(userId);

@@ -15,7 +15,6 @@ import br.com.products.kanban.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * REST controller for managing user-related endpoints.
@@ -41,9 +40,9 @@ public class UsersController {
     /**
      * Constructs a UsersController with required dependencies.
      *
-     * @param userService Service for user management.
-     * @param jwtService Service for JWT operations.
-     * @param userRepository Repository for user data.
+     * @param userService Service for user management operations.
+     * @param jwtService Service for JWT token operations.
+     * @param userRepository Repository for accessing user data.
      */
     public UsersController(UserService userService, JwtService jwtService, UserRepository userRepository) {
         this.userService = userService;
@@ -52,10 +51,9 @@ public class UsersController {
     }
 
     /**
-     * Retrieves all users.
+     * Retrieves all users in the system.
      *
-     * @return ResponseEntity containing a list of UserViewDto if users exist,
-     *         or no content status if the list is empty.
+     * @return ResponseEntity with a list of UserViewDTO if users exist, or 204 No Content if empty.
      */
     @GetMapping("/users")
     public ResponseEntity<List<UserViewDTO>> getUsers() {
@@ -66,11 +64,11 @@ public class UsersController {
     /**
      * Retrieves a user by their unique identifier.
      *
-     * @param id UUID of the user.
-     * @return ResponseEntity containing UserViewDto if found, or not found status otherwise.
+     * @param id The user's unique identifier (as String).
+     * @return ResponseEntity with UserViewDTO if found, or 404 Not Found if not.
      */
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserViewDTO> getUserById(@PathVariable UUID id) {
+    public ResponseEntity<UserViewDTO> getUserById(@PathVariable String id) {
         return userService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -90,9 +88,8 @@ public class UsersController {
     /**
      * Retrieves the currently authenticated user's information based on the JWT token.
      *
-     * @param authorizationHeader Authorization header containing the JWT token.
-     * @return ResponseEntity containing the UserEntity if found and token is valid,
-     *         unauthorized status if token is invalid, or not found status if user does not exist.
+     * @param authorizationHeader The Authorization header containing the JWT token.
+     * @return ResponseEntity with UserEntity if found and token is valid, 401 Unauthorized if token is invalid, or 404 Not Found if user does not exist.
      */
     @GetMapping("/user/me")
     public ResponseEntity<?> getMe(@RequestHeader("Authorization") String authorizationHeader) {
@@ -111,8 +108,8 @@ public class UsersController {
     /**
      * Creates a new user.
      *
-     * @param userDto Data transfer object containing user creation information.
-     * @return ResponseEntity containing the created UserViewDto with HTTP 201 status.
+     * @param userDto DTO containing user creation information.
+     * @return ResponseEntity with the created UserViewDTO and HTTP 201 status.
      */
     @PostMapping("/addUser")
     public ResponseEntity<UserViewDTO> createUser(@Valid @RequestBody UserCreationRequestDTO userDto) {

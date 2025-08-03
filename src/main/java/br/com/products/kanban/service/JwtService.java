@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Service for handling JWT operations such as token generation, validation, and extraction.
