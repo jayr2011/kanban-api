@@ -18,6 +18,7 @@ A simple Kanban board API built with Spring Boot.
 - Log4j2
 - Jasypt
 - Lombok
+- Docker
 
 ## Getting Started
 
