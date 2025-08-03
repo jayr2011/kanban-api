@@ -100,7 +100,7 @@ public class UsersController {
         if (!jwtService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
         }
-        UUID userId = jwtService.extractUserId(token);
+        String userId = jwtService.extractUserId(token);
         Optional<UserEntity> userOpt = userRepository.findById(userId);
         if (userOpt.isPresent()) {
             return ResponseEntity.ok(userOpt.get());

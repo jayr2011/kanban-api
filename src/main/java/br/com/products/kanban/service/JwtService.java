@@ -62,13 +62,13 @@ public class JwtService {
      * @param token JWT token as a String.
      * @return UUID of the user extracted from the token.
      */
-    public UUID extractUserId(@NotNull String token) {
+    public String extractUserId(@NotNull String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return UUID.fromString(claims.getSubject());
+        return claims.getSubject();
     }
 
     /**

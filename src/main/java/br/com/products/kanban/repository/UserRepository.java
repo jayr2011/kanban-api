@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import br.com.products.kanban.model.UserEntity;
 
 import java.util.Optional;
-import java.util.UUID;
-public interface UserRepository extends MongoRepository<UserEntity, UUID> {
+public interface UserRepository extends MongoRepository<UserEntity, String> {
     Optional<UserEntity> findByEmail(String email);
 }
