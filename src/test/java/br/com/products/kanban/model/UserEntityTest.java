@@ -22,7 +22,7 @@ public class UserEntityTest {
 
     @Test
     void shouldCorrectlyStoreAndRetrieveId() {
-        UUID id = UUID.randomUUID();
+        String id = "123e4567-e89b-12d3-a456-426614174000";
         user.setId(id);
         assertEquals(id, user.getId());
     }

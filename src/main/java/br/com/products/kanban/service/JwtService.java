@@ -46,7 +46,7 @@ public class JwtService {
      * @param userId UUID of the user.
      * @return Generated JWT token as a String.
      */
-    public String generateToken(@NotNull UUID userId) {
+    public String generateToken(@NotNull String userId) {
         Date now = new Date();
         return Jwts.builder()
                 .setSubject(userId.toString())

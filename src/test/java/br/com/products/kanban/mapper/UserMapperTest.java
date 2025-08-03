@@ -82,7 +82,7 @@ public class UserMapperTest {
     
     @Test
     void toViewDtoShouldMapIdCorrectly() {
-        java.util.UUID id = java.util.UUID.randomUUID();
+        String id = "123e4567-e89b-12d3-a456-426614174000";
         userEntity.setId(id);
         UserViewDto dto = UserMapper.toViewDTO(userEntity);
         assertEquals(id, dto.getId());

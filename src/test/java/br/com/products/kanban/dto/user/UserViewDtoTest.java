@@ -37,8 +37,8 @@ public class UserViewDtoTest {
 
     @Test
     void idShouldNotMatchIncorrectValue() {
-        UUID id = UUID.randomUUID();
-        UUID differentId = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
+        String id = "123e4567-e89b-12d3-a456-426614174000";
+        String differentId = ("123e4567-e89b-12d3-a456-426614174001");
         userViewDto.setId(id);
         assertNotEquals(differentId, userViewDto.getId());
     }
@@ -74,7 +74,7 @@ public class UserViewDtoTest {
     }
     @Test
     void idShouldBeSetAndRetrievedCorrectly() {
-        UUID id = UUID.randomUUID();
+        String id = "123e4567-e89b-12d3-a456-426614174000";
         userViewDto.setId(id);
         assertEquals(id, userViewDto.getId());
     }

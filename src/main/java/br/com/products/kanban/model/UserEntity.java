@@ -2,30 +2,25 @@ package br.com.products.kanban.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
+@Document(collection = "users")
 public class UserEntity {
-    @Column(name = "name")
     private String name;
     @Id
-    @GeneratedValue(generator = "UUID")
-    @Column(name = "id")
-    private UUID id;
-    @Column(name = "documentNumber")
+    private String id;
     private Long documentNumber;
-    @Column(name = "email")
     @Email(message = "email should be valid")
     private String email;
-    @Column(nullable = false)
     @JsonIgnore
     private String password;
 }
