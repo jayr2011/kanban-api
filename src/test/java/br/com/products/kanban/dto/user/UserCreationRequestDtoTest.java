@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
 public class UserCreationRequestDtoTest {
-    private UserCreationRequestDto userCreationRequestDto;
+    private UserCreationRequestDTO userCreationRequestDto;
 
     @BeforeEach
     void setUp() {
-        userCreationRequestDto = new UserCreationRequestDto();
+        userCreationRequestDto = new UserCreationRequestDTO();
     }
 
     @Test

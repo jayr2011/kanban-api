@@ -2,8 +2,8 @@ package br.com.products.kanban.mapper;
 
 import org.modelmapper.ModelMapper;
 
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
-import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
+import br.com.products.kanban.dto.user.UserViewDTO;
 import br.com.products.kanban.model.UserEntity;
 
 /**
@@ -21,7 +21,7 @@ public class UserMapper {
      * @param dto The UserCreationRequestDto to be mapped.
      * @return The mapped UserEntity.
      */
-    public static UserEntity toEntity(UserCreationRequestDto dto) {
+    public static UserEntity toEntity(UserCreationRequestDTO dto) {
         return modelMapper.map(dto, UserEntity.class);
     }
 
@@ -31,7 +31,7 @@ public class UserMapper {
      * @param user The UserEntity to be mapped.
      * @return The mapped UserViewDto.
      */
-    public static UserViewDto toViewDTO(UserEntity user) {
-        return modelMapper.map(user, UserViewDto.class);
+    public static UserViewDTO toViewDTO(UserEntity user) {
+        return modelMapper.map(user, UserViewDTO.class);
     }
 }

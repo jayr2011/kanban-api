@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserViewDTO;
 import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.repository.UserRepository;
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
 import br.com.products.kanban.service.JwtService;
 import br.com.products.kanban.service.UserService;
 
@@ -58,8 +58,8 @@ public class UsersController {
      *         or no content status if the list is empty.
      */
     @GetMapping("/users")
-    public ResponseEntity<List<UserViewDto>> getUsers() {
-        List<UserViewDto> users = userService.findAllUsers();
+    public ResponseEntity<List<UserViewDTO>> getUsers() {
+        List<UserViewDTO> users = userService.findAllUsers();
         return users.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(users);
     }
 
@@ -70,7 +70,7 @@ public class UsersController {
      * @return ResponseEntity containing UserViewDto if found, or not found status otherwise.
      */
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserViewDto> getUserById(@PathVariable UUID id) {
+    public ResponseEntity<UserViewDTO> getUserById(@PathVariable UUID id) {
         return userService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -115,7 +115,7 @@ public class UsersController {
      * @return ResponseEntity containing the created UserViewDto with HTTP 201 status.
      */
     @PostMapping("/addUser")
-    public ResponseEntity<UserViewDto> createUser(@Valid @RequestBody UserCreationRequestDto userDto) {
+    public ResponseEntity<UserViewDTO> createUser(@Valid @RequestBody UserCreationRequestDTO userDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userDto));
     }
 }

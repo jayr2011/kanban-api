@@ -1,6 +1,6 @@
 package br.com.products.kanban.service;
 
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
 import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.repository.UserRepository;
 
@@ -35,7 +35,7 @@ public class UserServiceTest {
         UserService userService = new UserService(userRepository, cryptoPasswordService);
 
 
-        UserCreationRequestDto dto = new UserCreationRequestDto();
+        UserCreationRequestDTO dto = new UserCreationRequestDTO();
         dto.setEmail("existing@example.com");
         dto.setPassword("password123");
 
@@ -52,7 +52,7 @@ public class UserServiceTest {
     void createUserShouldReturnUserViewDtoWhenEmailDoesNotExist() {
         UserService userService = new UserService(userRepository, cryptoPasswordService);
 
-        UserCreationRequestDto userCreationRequestDto = new UserCreationRequestDto();
+        UserCreationRequestDTO userCreationRequestDto = new UserCreationRequestDTO();
         userCreationRequestDto.setEmail("example@examole.com");
         userCreationRequestDto.setPassword("password123");
         userCreationRequestDto.setName("exemplo");

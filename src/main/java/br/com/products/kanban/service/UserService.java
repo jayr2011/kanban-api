@@ -1,7 +1,7 @@
 package br.com.products.kanban.service;
 
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
-import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
+import br.com.products.kanban.dto.user.UserViewDTO;
 import br.com.products.kanban.mapper.UserMapper;
 import br.com.products.kanban.repository.UserRepository;
 import org.slf4j.Logger;
@@ -50,7 +50,7 @@ public class UserService {
      * @return UserViewDto representing the created user.
      * @throws RuntimeException if the email already exists.
      */
-    public UserViewDto createUser(UserCreationRequestDto dto) {
+    public UserViewDTO createUser(UserCreationRequestDTO dto) {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             logger.info("Logg: Email already exists: {}", dto.getEmail());
             throw new RuntimeException("Email already exists");
@@ -65,7 +65,7 @@ public class UserService {
      * @param id UUID of the user.
      * @return Optional containing UserViewDto if found, empty otherwise.
      */
-    public Optional<UserViewDto> findById(UUID id) {
+    public Optional<UserViewDTO> findById(UUID id) {
         return userRepository.findById(id).map(UserMapper::toViewDTO);
     }
 
@@ -74,7 +74,7 @@ public class UserService {
      *
      * @return List of UserViewDto representing all users.
      */
-    public List<UserViewDto> findAllUsers() {
+    public List<UserViewDTO> findAllUsers() {
         return userRepository.findAll().stream().map(UserMapper::toViewDTO).toList();
     }
 

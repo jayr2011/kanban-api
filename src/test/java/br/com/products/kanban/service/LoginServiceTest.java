@@ -1,6 +1,6 @@
 package br.com.products.kanban.service;
 
-import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.dto.LoginDTO;
 import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ public class LoginServiceTest {
 
     private LoginService loginService;
 
-    private LoginDto loginDto;
+    private LoginDTO loginDto;
 
     private UserEntity userEntity;
     
@@ -34,7 +34,7 @@ public class LoginServiceTest {
     void setUp(){
         MockitoAnnotations.openMocks(this);
         loginService = new LoginService(userRepository, cryptoPassword, jwtService);
-        loginDto = new LoginDto();
+        loginDto = new LoginDTO();
         userEntity = new UserEntity();
     }
 

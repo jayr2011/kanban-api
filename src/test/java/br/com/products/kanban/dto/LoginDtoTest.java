@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
 public class LoginDtoTest {
-    private LoginDto loginDto;
+    private LoginDTO loginDto;
 
     @BeforeEach
     void setUp() {
-        loginDto = new LoginDto();
+        loginDto = new LoginDTO();
         loginDto.setEmail("test@example.com");
         loginDto.setPassword("password123");
         
@@ -28,7 +28,7 @@ public class LoginDtoTest {
 
     @Test
     void testAllArgs() {
-        LoginDto loginDto = new LoginDto();
+        LoginDTO loginDto = new LoginDTO();
         loginDto.setEmail("user@domain.com");
         loginDto.setPassword("pass123");
         assertAll(
@@ -39,7 +39,7 @@ public class LoginDtoTest {
 
     @Test
     void testDefaultValues() {
-        LoginDto defaultLoginDto = new LoginDto();
+        LoginDTO defaultLoginDto = new LoginDTO();
         assertNull(defaultLoginDto.getEmail());
         assertNull(defaultLoginDto.getPassword());
     }

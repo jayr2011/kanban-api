@@ -1,6 +1,6 @@
 package br.com.products.kanban.service;
 
-import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.dto.LoginDTO; 
 import br.com.products.kanban.mapper.LoginMapper;
 import br.com.products.kanban.model.UserEntity;
 import br.com.products.kanban.repository.UserRepository;
@@ -51,7 +51,7 @@ public class LoginService {
      * @param loginDTto Data transfer object containing login credentials.
      * @return true if authentication is successful, false otherwise.
      */
-    public boolean authenticate(LoginDto loginDTto){
+    public boolean authenticate(LoginDTO loginDTto){
         UserEntity loginData = LoginMapper.toUserEntityFromResponseDto(loginDTto);
         return userRepository.findByEmail(loginData.getEmail())
                 .map(userFromDatabase -> cryptoPassword.matches(loginData.getPassword(), userFromDatabase.getPassword()))
@@ -64,7 +64,7 @@ public class LoginService {
      * @param loginDto Data transfer object containing login credentials.
      * @return Optional containing JWT token if login is successful, empty otherwise.
      */
-    public Optional<String> login(LoginDto loginDto) {
+    public Optional<String> login(LoginDTO loginDto) {
         return userRepository.findByEmail(loginDto.getEmail())
                 .filter(user -> cryptoPassword.matches(loginDto.getPassword(), user.getPassword()))
                 .map(user -> jwtService.generateToken(user.getId()));

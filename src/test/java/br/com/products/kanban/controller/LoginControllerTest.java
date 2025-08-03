@@ -1,6 +1,6 @@
 package br.com.products.kanban.controller;
 
-import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.dto.LoginDTO;
 import br.com.products.kanban.service.LoginService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class LoginControllerTest {
 
     @Test
     void testLoginSuccess() {
-        LoginDto loginDto = new LoginDto();
+        LoginDTO loginDto = new LoginDTO();
         when(loginService.login(loginDto)).thenReturn(java.util.Optional.of("fake-jwt-token"));
 
         ResponseEntity<?> response = loginController.login(loginDto);
@@ -42,7 +42,7 @@ class LoginControllerTest {
 
     @Test
     void testLoginFailure() {
-        LoginDto loginDto = new LoginDto();
+        LoginDTO loginDto = new LoginDTO();
         when(loginService.login(loginDto)).thenReturn(java.util.Optional.empty());
 
         ResponseEntity<?> response = loginController.login(loginDto);

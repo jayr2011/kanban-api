@@ -12,8 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.products.kanban.dto.user.UserViewDto;
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
+import br.com.products.kanban.dto.user.UserViewDTO;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
 import br.com.products.kanban.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,10 +33,10 @@ public class UsersControllerTest {
 
     @Test
     void shouldReturnUserList() {
-        List<UserViewDto> mockUsers = List.of(new UserViewDto());
+        List<UserViewDTO> mockUsers = List.of(new UserViewDTO());
         when(userService.findAllUsers()).thenReturn(mockUsers);
 
-        ResponseEntity<List<UserViewDto>> response = usersController.getUsers();
+        ResponseEntity<List<UserViewDTO>> response = usersController.getUsers();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockUsers, response.getBody());
@@ -46,7 +46,7 @@ public class UsersControllerTest {
     void shouldReturnNoContentWhenUserListIsEmpty() {
         when(userService.findAllUsers()).thenReturn(List.of());
 
-        ResponseEntity<List<UserViewDto>> response = usersController.getUsers();
+        ResponseEntity<List<UserViewDTO>> response = usersController.getUsers();
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         assertNull(response.getBody());
@@ -55,10 +55,10 @@ public class UsersControllerTest {
     @Test
     void shouldReturnUserById() {
         UUID userId = UUID.randomUUID();
-        UserViewDto user = new UserViewDto();
+        UserViewDTO user = new UserViewDTO();
         when(userService.findById(userId)).thenReturn(Optional.of(user));
 
-        ResponseEntity<UserViewDto> response = usersController.getUserById(userId);
+        ResponseEntity<UserViewDTO> response = usersController.getUserById(userId);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
@@ -69,7 +69,7 @@ public class UsersControllerTest {
         UUID userId = UUID.randomUUID();
         when(userService.findById(userId)).thenReturn(Optional.empty());
 
-        ResponseEntity<UserViewDto> response = usersController.getUserById(userId);
+        ResponseEntity<UserViewDTO> response = usersController.getUserById(userId);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
@@ -77,11 +77,11 @@ public class UsersControllerTest {
 
     @Test
     void shouldCreateUser() {
-        UserCreationRequestDto requestDto = new UserCreationRequestDto();
-        UserViewDto savedUser = new UserViewDto();
+        UserCreationRequestDTO requestDto = new UserCreationRequestDTO();
+        UserViewDTO savedUser = new UserViewDTO();
         when(userService.createUser(requestDto)).thenReturn(savedUser);
 
-        ResponseEntity<UserViewDto> response = usersController.createUser(requestDto);
+        ResponseEntity<UserViewDTO> response = usersController.createUser(requestDto);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(savedUser, response.getBody());

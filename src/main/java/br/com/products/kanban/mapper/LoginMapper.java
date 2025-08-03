@@ -2,7 +2,7 @@ package br.com.products.kanban.mapper;
 
 import org.modelmapper.ModelMapper;
 
-import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.dto.LoginDTO;
 import br.com.products.kanban.model.UserEntity;
 
 /**
@@ -20,7 +20,7 @@ public class LoginMapper {
      * @param loginDto The LoginDto to be mapped.
      * @return The mapped UserEntity.
      */
-    public static UserEntity toUserEntityFromResponseDto(LoginDto loginDto) {
+    public static UserEntity toUserEntityFromResponseDto(LoginDTO loginDto) {
         return modelMapper.map(loginDto, UserEntity.class);
     }
 }

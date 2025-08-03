@@ -1,7 +1,7 @@
 package br.com.products.kanban.mapper;
 
-import br.com.products.kanban.dto.user.UserCreationRequestDto;
-import br.com.products.kanban.dto.user.UserViewDto;
+import br.com.products.kanban.dto.user.UserCreationRequestDTO;
+import br.com.products.kanban.dto.user.UserViewDTO;
 import br.com.products.kanban.model.UserEntity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class UserMapperTest {
     private UserEntity userEntity;
-    private UserCreationRequestDto userCreationRequestDto;
-    private UserViewDto userViewDto;
+    private UserCreationRequestDTO userCreationRequestDto;
+    private UserViewDTO userViewDto;
 
     @BeforeEach
     void setUp() {
-        userCreationRequestDto = new UserCreationRequestDto();
+        userCreationRequestDto = new UserCreationRequestDTO();
         userCreationRequestDto.setName("test");
         userCreationRequestDto.setEmail("jone@test.com");
         userCreationRequestDto.setPassword("1234");
@@ -84,63 +84,63 @@ public class UserMapperTest {
     void toViewDtoShouldMapIdCorrectly() {
         String id = "123e4567-e89b-12d3-a456-426614174000";
         userEntity.setId(id);
-        UserViewDto dto = UserMapper.toViewDTO(userEntity);
+        UserViewDTO dto = UserMapper.toViewDTO(userEntity);
         assertEquals(id, dto.getId());
     }
 
     @Test
     void toViewDtoShouldMapNameCorrectly() {
         userEntity.setName("Alice");
-        UserViewDto dto = UserMapper.toViewDTO(userEntity);
+        UserViewDTO dto = UserMapper.toViewDTO(userEntity);
         assertEquals("Alice", dto.getName());
     }
 
     @Test
     void toViewDtoShouldMapEmailCorrectly() {
         userEntity.setEmail("alice@example.com");
-        UserViewDto dto = UserMapper.toViewDTO(userEntity);
+        UserViewDTO dto = UserMapper.toViewDTO(userEntity);
         assertEquals("alice@example.com", dto.getEmail());
     }
 
     @Test
     void toViewDtoShouldMapDocumentNumberCorrectly() {
         userEntity.setDocumentNumber(987654321L);
-        UserViewDto dto = UserMapper.toViewDTO(userEntity);
+        UserViewDTO dto = UserMapper.toViewDTO(userEntity);
         assertEquals(987654321L, dto.getDocumentNumber());
     }
     
     @Test
     void toViewDtoShouldReturnDistinctInstances() {
-        UserViewDto first = UserMapper.toViewDTO(userEntity);
-        UserViewDto second = UserMapper.toViewDTO(userEntity);
+        UserViewDTO first = UserMapper.toViewDTO(userEntity);
+        UserViewDTO second = UserMapper.toViewDTO(userEntity);
         assertNotSame(first, second);
     }
     
     @Test
     void toViewDtoShouldReturnNullIdWhenIdNotSet() {
         UserEntity empty = new UserEntity();
-        UserViewDto dto = UserMapper.toViewDTO(empty);
+        UserViewDTO dto = UserMapper.toViewDTO(empty);
         assertNull(dto.getId());
     }
 
     @Test
     void toViewDtoShouldReturnNullNameWhenNameNotSet() {
         UserEntity empty = new UserEntity();
-        UserViewDto dto = UserMapper.toViewDTO(empty);
+        UserViewDTO dto = UserMapper.toViewDTO(empty);
         assertNull(dto.getName());
     }
 
     @Test
     void toViewDtoShouldReturnNullEmailWhenEmailNotSet() {
         UserEntity empty = new UserEntity();
-        UserViewDto dto = UserMapper.toViewDTO(empty);
+        UserViewDTO dto = UserMapper.toViewDTO(empty);
         assertNull(dto.getEmail());
     }
 
     @Test
     void toViewDtoShouldReturnNullDocumentNumberWhenDocumentNumberNotSet() {
         UserEntity empty = new UserEntity();
-        UserViewDto dto = UserMapper.toViewDTO(empty);
+        UserViewDTO dto = UserMapper.toViewDTO(empty);
         assertNull(dto.getDocumentNumber());
     }
 }

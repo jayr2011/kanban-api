@@ -1,6 +1,6 @@
 package br.com.products.kanban.controller;
 
-import br.com.products.kanban.dto.LoginDto;
+import br.com.products.kanban.dto.LoginDTO;
 import br.com.products.kanban.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class LoginController {
      *         or an error message with HTTP 401 status if credentials are invalid.
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginDTO loginDto) {
         return loginService.login(loginDto)
                 .<ResponseEntity<?>>map(token -> ResponseEntity.ok(Map.of("token", token)))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
