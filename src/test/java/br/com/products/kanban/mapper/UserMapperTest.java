@@ -10,22 +10,22 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class UserMapperTest {
     private UserEntity userEntity;
-    private UserCreationRequestDTO userCreationRequestDto;
+    private UserCreationRequestDTO userCreationRequestDTO;
     private UserViewDTO userViewDto;
 
     @BeforeEach
     void setUp() {
-        userCreationRequestDto = new UserCreationRequestDTO();
-        userCreationRequestDto.setName("test");
-        userCreationRequestDto.setEmail("jone@test.com");
-        userCreationRequestDto.setPassword("1234");
-        userCreationRequestDto.setDocumentNumber(123456L);
-        userEntity = UserMapper.toEntity(userCreationRequestDto);
+        userCreationRequestDTO = new UserCreationRequestDTO();
+        userCreationRequestDTO.setName("test");
+        userCreationRequestDTO.setEmail("jone@test.com");
+        userCreationRequestDTO.setPassword("1234");
+        userCreationRequestDTO.setDocumentNumber(123456L);
+        userEntity = UserMapper.toEntity(userCreationRequestDTO);
     }
 
     @Test
     void shouldMapEmailFromDtoToEntity() {
-        UserEntity entity = UserMapper.toEntity(userCreationRequestDto);
+        UserEntity entity = UserMapper.toEntity(userCreationRequestDTO);
         assertEquals("jone@test.com", entity.getEmail());
     }
 
@@ -38,19 +38,19 @@ public class UserMapperTest {
 
     @Test
     void shouldMapNameFromDtoToEntity() {
-        UserEntity entity = UserMapper.toEntity(userCreationRequestDto);
+        UserEntity entity = UserMapper.toEntity(userCreationRequestDTO);
         assertEquals("test", entity.getName());
     }
 
     @Test
     void shouldMapPasswordFromDtoToEntity() {
-        UserEntity entity = UserMapper.toEntity(userCreationRequestDto);
+        UserEntity entity = UserMapper.toEntity(userCreationRequestDTO);
         assertEquals("1234", entity.getPassword());
     }
 
     @Test
     void shouldMapDocumentNumberFromDtoToEntity() {
-        UserEntity entity = UserMapper.toEntity(userCreationRequestDto);
+        UserEntity entity = UserMapper.toEntity(userCreationRequestDTO);
         assertEquals(123456L, entity.getDocumentNumber());
     }
 
@@ -61,8 +61,8 @@ public class UserMapperTest {
 
     @Test
     void toEntityShouldReturnUserEntityWithIncorrectName() {
-        userCreationRequestDto.setName(null);
-        userEntity = UserMapper.toEntity(userCreationRequestDto);
+        userCreationRequestDTO.setName(null);
+        userEntity = UserMapper.toEntity(userCreationRequestDTO);
         assertNotEquals("test" ,userEntity.getName());
     }
 

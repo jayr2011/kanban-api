@@ -52,11 +52,11 @@ public class UserServiceTest {
     void createUserShouldReturnUserViewDtoWhenEmailDoesNotExist() {
         UserService userService = new UserService(userRepository, cryptoPasswordService);
 
-        UserCreationRequestDTO userCreationRequestDto = new UserCreationRequestDTO();
-        userCreationRequestDto.setEmail("example@examole.com");
-        userCreationRequestDto.setPassword("password123");
-        userCreationRequestDto.setName("exemplo");
-        userCreationRequestDto.setDocumentNumber(123456789L);
+        UserCreationRequestDTO userCreationRequestDTO = new UserCreationRequestDTO();
+        userCreationRequestDTO.setEmail("example@examole.com");
+        userCreationRequestDTO.setPassword("password123");
+        userCreationRequestDTO.setName("exemplo");
+        userCreationRequestDTO.setDocumentNumber(123456789L);
 
         when(userRepository.findByEmail("example@examole.com")).thenReturn(Optional.empty());
         when(cryptoPasswordService.encodePassword("password123")).thenReturn("encodedPassword");
@@ -69,7 +69,7 @@ public class UserServiceTest {
 
         when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
         
-        var resultDto = userService.createUser(userCreationRequestDto);
+        var resultDto = userService.createUser(userCreationRequestDTO);
 
         assertEquals(userEntity.getEmail(), resultDto.getEmail());
         verify(userRepository).findByEmail("example@examole.com");
