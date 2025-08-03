@@ -1,15 +1,12 @@
-# fly.toml app configuration file generated for kanban-api-frosty-waterfall-7511 on 2025-08-03T15:45:18-03:00
+# fly.toml app configuration file generated for kanban-api-ua7zmw on 2025-08-03T20:51:58Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'kanban-api-frosty-waterfall-7511'
+app = 'kanban-api-ua7zmw'
 primary_region = 'gru'
 
 [build]
-
-[env]
-  SERVER_PORT = '8080'
 
 [http_service]
   internal_port = 8080
@@ -19,21 +16,8 @@ primary_region = 'gru'
   min_machines_running = 0
   processes = ['app']
 
-[[services]]
-  protocol = 'tcp'
-  internal_port = 8080
-
-  [[services.ports]]
-    port = 80
-
-  [[services.ports]]
-    port = 443
-
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 1024
