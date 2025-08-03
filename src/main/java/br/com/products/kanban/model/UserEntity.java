@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Document(collection = "users")
 public class UserEntity {
     private String name;
