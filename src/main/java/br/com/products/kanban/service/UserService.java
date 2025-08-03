@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Service responsible for user management operations such as creation, retrieval, and listing.
@@ -35,7 +34,7 @@ public class UserService {
     /**
      * Constructs a UserService with required dependencies.
      *
-     * @param userRepository Repository for user data.
+     * @param userRepository Repository for accessing user data.
      * @param cryptoPasswordService Service for password encryption.
      */
     public UserService(UserRepository userRepository, CryptoPasswordService cryptoPasswordService) {
@@ -46,8 +45,8 @@ public class UserService {
     /**
      * Creates a new user if the email does not already exist.
      *
-     * @param dto Data transfer object containing user creation information.
-     * @return UserViewDto representing the created user.
+     * @param dto DTO containing user creation information.
+     * @return UserViewDTO representing the created user.
      * @throws RuntimeException if the email already exists.
      */
     public UserViewDTO createUser(UserCreationRequestDTO dto) {
@@ -62,17 +61,17 @@ public class UserService {
     /**
      * Finds a user by their unique identifier.
      *
-     * @param id UUID of the user.
-     * @return Optional containing UserViewDto if found, empty otherwise.
+     * @param id The user's unique identifier (as String).
+     * @return Optional containing UserViewDTO if found, empty otherwise.
      */
-    public Optional<UserViewDTO> findById(UUID id) {
+    public Optional<UserViewDTO> findById(String id) {
         return userRepository.findById(id).map(UserMapper::toViewDTO);
     }
 
     /**
      * Retrieves all users in the system.
      *
-     * @return List of UserViewDto representing all users.
+     * @return List of UserViewDTO representing all users.
      */
     public List<UserViewDTO> findAllUsers() {
         return userRepository.findAll().stream().map(UserMapper::toViewDTO).toList();

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Service for handling JWT operations such as token generation, validation, and extraction.
@@ -62,13 +61,13 @@ public class JwtService {
      * @param token JWT token as a String.
      * @return UUID of the user extracted from the token.
      */
-    public UUID extractUserId(@NotNull String token) {
+    public String extractUserId(@NotNull String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return UUID.fromString(claims.getSubject());
+        return claims.getSubject();
     }
 
     /**
