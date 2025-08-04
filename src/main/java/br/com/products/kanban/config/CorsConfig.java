@@ -1,6 +1,7 @@
 package br.com.products.kanban.config;
 
-                import org.springframework.context.annotation.Bean;
+                import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
                 import org.springframework.context.annotation.Configuration;
                 import org.springframework.lang.NonNull;
                 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -11,6 +12,8 @@ package br.com.products.kanban.config;
                  */
                 @Configuration
                 public class CorsConfig {
+                    @Value("${cors.origin}")
+                    private String corsOrigin;
                     /**
                      * Bean that configures CORS mappings for the application.
                      * Allows requests from * with specified HTTP methods and headers.
@@ -28,7 +31,7 @@ package br.com.products.kanban.config;
                             @Override
                             public void addCorsMappings(@NonNull CorsRegistry registry) {
                                 registry.addMapping("/**")
-                                        .allowedOrigins("http://localhost:5173")
+                                        .allowedOrigins(corsOrigin)
                                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                                         .allowedHeaders("*")
                                         .allowCredentials(true);
